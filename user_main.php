@@ -12,6 +12,8 @@
                <input type="text" name="name" placeholder="Nombre completo">
                <input type="email" name="email" placeholder="Email">
                <input type="password" name="passw" placeholder="Contraseña">
+               <input type="text" name="cp" placeholder="Código Postal">
+               <input type="text" name="address" placeholder="Dirección de envíos">
                <input type="submit" name="register" value="Registrarse">
           </form>
           <?php
