@@ -1,0 +1,155 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: linear-gradient(-45deg, #000000, #434343);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#logo {
+  text-align: center;
+  padding: 10px 0;
+}
+#logo img {
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+li {
+  list-style: none;
+}
+.drop {
+  display: inline-block;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.drop ul {
+  display: none;
+}
+.drop p:hover{
+  color: rgb(204, 204, 204);
+}
+
+header ul{
+    display: flex;
+    justify-content: center; /*Con esto le indicamos que margine todos los items que se encuentra adentro hacia la derecha e izquierda*/
+    align-items: center; /*con esto alineamos de manera vertical*/
+}
+#options{
+  position: absolute;
+}
+#compras{
+  margin-left: auto;
+}
+
+.drop:hover ul{
+    display: inline;
+    position: absolute;
+    padding-left: 0;
+    background: gray;
+}
+#ropa_mujer{
+  border-top: solid 1px #000;
+}
+.drop ul li{
+  padding:5px;
+  box-shadow: inset 0 0 0 0 #e47053;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+.drop ul li:hover{
+  box-shadow: inset 100px 0 0 0 #e47053;
+  color: white;
+}
+
+
+.drop ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+.container-svg{
+  text-align: center;
+}
+#presentacion{
+  margin-bottom: 30px;
+}
+footer h2{
+  margin-top: 50px;
+  text-align:center;
+}
+footer svg{
+  display: inline;
+  width:3%;
+  height:3%;
+}
+footer svg:hover{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/*SLIDER*/
+
+.container-slider{
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #fff,  0 15px 50px #000;
+  position: relative;
+}
+.slider{
+  display: flex;
+  height: 400px;
+  width: 400%;
+  margin-left: -100%;
+}
+
+.slider__section{
+  width: 100%;
+}
+
+.slider__img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider__btn{
+  position: absolute;
+  color: #000;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.7);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider__btn:hover{
+  background:rgb(255, 255, 255);
+}
+
+.slider__btn--left{
+  left: 10px;
+}
+.slider__btn--right{
+  right: 10px;
+}
