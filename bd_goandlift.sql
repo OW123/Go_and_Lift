@@ -86,6 +86,20 @@ AS
     END
 
         
+/*Proc para agregar Productos*/
+ALTER proc AgregaProducto
+@IdCategoria int,
+@Precio numeric(10,2)
+as
+
+if exists(select * from Categorias where IdCategoria = @IdCategoria)
+begin
+	insert into Productos(IdCategoria,Precio)
+	values(@IdCategoria,@Precio)
+	select 'Agregado exitosamente' as mensaje
+end
+else
+	select 'Esta categoria no existe'
 
 /*Actualizar datos de cliente*/
 create proc Act_Cliente
