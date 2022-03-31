@@ -18,6 +18,7 @@
           </form>
           <?php
                include("registrar.php");
+               include("form.php");
           ?>
      </body>
 </html>
