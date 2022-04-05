@@ -208,14 +208,93 @@ AS
     TRIGGERS
 ***************************************/
 
-/*Trigger para tabla de Tickets*/
+/*Crear tabla de logs de Productos_H*/
+create table log_Productos_H(
+	IdProducto int,
+    IdCategoria int,
+    Precio numeric(10,2), 
+    Descripción varchar(100),
+    Accion varchar(50),
+    Fecha_Mod smalldatetime
+)
 
+/*Trigger para la tabla de un producto eleiminado de Productos_H*/
+create trigger tg_EliminaProducto_H
+on Productos_H after DELETE
+AS
+    insert into log_Productos_H(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
+    select IdProducto,IdCategoria,Precio,Descripcion,'Eliminado',getdate() from deleted
+    
+    
+ /*Crear tabla de logs de Productos_M*/
+ create table log_Productos_M(
+	IdProducto int,
+    IdCategoria int,
+    Precio numeric(10,2), 
+    Descripción varchar(100),
+    Accion varchar(50),
+    Fecha_Mod smalldatetime
+)
+
+/*Trigger para la tabla de un producto eleiminado de Productos_M*/
+create trigger tg_EliminaProducto_M
+on Productos_M after DELETE
+AS
+    insert into log_Productos_H(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
+    select IdProducto,IdCategoria,Precio,Descripcion,'Eliminado',getdate() from deleted
+    
+
+
+/*Trigger producto actualizado*/
+create trigger tg_ActualizaProducto_H
+on Productos_H after UPDATE
+As
+    insert into log_Productos(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
+    select IdProducto,IdCategoria,Precio,Descripcion,'Actualizado',getdate() from inserted
+    
+    
+create trigger tg_ActualizaProducto_M
+on Productos_M after UPDATE
+As
+    insert into log_Productos(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
+    select IdProducto,IdCategoria,Precio,Descripcion,'Actualizado',getdate() from inserted
+    
+    
+    
+    
+ /*Log de Clientes*/
+create table log_Clientes(
+    IdCliente int ,
+    Correo varchar(200),
+    Nombre varchar(60),
+    Direccion varchar(250),
+    CodigoPostal int,
+    contraseña varchar(100),
+    Accion varchar(50),
+    FechaMod smalldatetime 
+)
+
+/*Trigger de actualizacion de clientes*/
+create trigger tg_ActualizaCliente
+on Cliente after UPDATE
+AS
+    insert into log_Clientes (IdCliente,Correo,Nombre,Direccion,CodigoPostal,contraseña,Accion,FechaMod)
+    select IdCliente, Correo,Nombre,Direccion, CodigoPostal,contraseña,'Actualizado',getdate() from inserted
+
+/*Trigger de Cliente Eliminado*/
+create trigger tg_EliminaCliente
+on Cliente after DELETE
+AS
+    insert into log_Clientes(IdCliente,Correo,Nombre,Direccion,CodigoPostal,contraseña,Accion,FechaMod)
+    select IdCliente, Correo,Nombre,Direccion, CodigoPostal,contraseña,'Eliminado',getdate() from deleted
+    
+ 
+
+/*Trigger para tabla de Tickets*/
 create table log_ticket(
     IdTicket int ,
     IdCliente int ,
-    IdProducto int ,
     MetodoPago varchar(100),
-    Cantidad int,
     FechaVenta smalldatetime,
     FechaReparto smalldatetime,
     Accion varchar(50),
@@ -226,62 +305,12 @@ create table log_ticket(
 create trigger tg_EliminaTicket
 on Ticket after DELETE
 as 
-    insert into log_ticket(IdTicket,IdCliente,IdProducto,MetodoPago,Cantidad,FechaVenta,FechaReparto,Accion,Fecha_Mod)
-    select IdTicket,IdCliente,IdProducto,MetodoPago,Cantidad,FechaVenta,FechaReparto,'Eliminado',getdate() from deleted
+    insert into log_ticket(IdTicket,IdCliente,MetodoPago,FechaVenta,FechaReparto,Accion,Fecha_Mod)
+    select IdTicket,IdCliente,MetodoPago,FechaVenta,FechaReparto,'Eliminado',getdate() from deleted
 
 /*Ticket actualizado*/
 create trigger tg_ActualizaTicket
 on Ticket after UPDATE
 As
-    insert into log_ticket(IdTicket,IdCliente,IdProducto,MetodoPago,Cantidad,FechaVenta,FechaReparto,Accion,Fecha_Mod)
-    select IdTicket,IdCliente,IdProducto,MetodoPago,Cantidad,FechaVenta,FechaReparto,'Actualizado',getdate() from inserted
-
-
-/*Log de Clientes*/
-create table log_Clientes(
-    IdCliente int ,
-    Correo varchar(200),
-    Nombre varchar(60),
-    Direccion varchar(250),
-    CodigoPostal int,
-    Accion varchar(50),
-    FechaMod smalldatetime 
-)
-
-/*Trigger de actualizacion de clientes*/
-create trigger tg_ActualizaCliente
-on Cliente after UPDATE
-AS
-    insert into log_Clientes (IdCliente,Correo,Nombre,Direccion,CodigoPostal,Accion,FechaMod)
-    select IdCliente, Correo,Nombre,Direccion, CodigoPostal,'Actualizado',getdate() from inserted
-
-/*Trigger de Cliente Eliminado*/
-create trigger tg_EliminaCliente
-on Cliente after DELETE
-AS
-    insert into log_Clientes(IdCliente,Correo,Nombre,Direccion,CodigoPostal,Accion,FechaMod)
-    select IdCliente, Correo,Nombre,Direccion, CodigoPostal,'Eliminado',getdate() from deleted
-
-
-/*Log para Productos*/
-create table log_Productos (
-    IdProducto int,
-    IdCategoria int,
-    Precio numeric(10,2), 
-    Accion varchar(50),
-    Fecha_Mod smalldatetime
-)
-
-/*Trigger de Producto Eliminado*/
-create trigger tg_EliminaProducto
-on Productos after DELETE
-AS
-    insert into log_Productos(IdProducto,IdCategoria,Precio,Accion ,Fecha_Mod)
-    select IdProducto,IdCategoria,Precio,'Eliminado',getdate() from deleted
-
-/*Trigger producto actualizado*/
-create trigger tg_ActualizaProducto
-on Productos after UPDATE
-As
-    insert into log_Productos(IdProducto,IdCategoria,Precio,Accion ,Fecha_Mod)
-    select IdProducto,IdCategoria,Precio,'Actualizado',getdate() from inserted
+    insert into log_ticket(IdTicket,IdCliente,MetodoPago,FechaVenta,FechaReparto,Accion,Fecha_Mod)
+    select IdTicket,IdCliente,MetodoPago,FechaVenta,FechaReparto,'Actualizado',getdate() from inserted
