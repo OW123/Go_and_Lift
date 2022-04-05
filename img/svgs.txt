@@ -1,5 +1,0 @@
-ICONOS
-
-<img src="https://img.icons8.com/ios/50/000000/clothes.png"/>
-
-<img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-food-hotel-kiranshastry-lineal-kiranshastry.png"/>
