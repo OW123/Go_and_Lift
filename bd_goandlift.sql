@@ -249,14 +249,14 @@ AS
 create trigger tg_ActualizaProducto_H
 on Productos_H after UPDATE
 As
-    insert into log_Productos(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
+    insert into log_Productos_H(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
     select IdProducto,IdCategoria,Precio,Descripcion,'Actualizado',getdate() from inserted
     
     
 create trigger tg_ActualizaProducto_M
 on Productos_M after UPDATE
 As
-    insert into log_Productos(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
+    insert into log_Productos_M(IdProducto,IdCategoria,Precio,Descripcion,Accion ,Fecha_Mod)
     select IdProducto,IdCategoria,Precio,Descripcion,'Actualizado',getdate() from inserted
     
     
